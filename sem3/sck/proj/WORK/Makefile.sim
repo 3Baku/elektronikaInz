@@ -1,0 +1,49 @@
+sim_tool  = xrun
+wave_tool = verisium
+
+arg  = -timescale 1ns/1ps
+arg += -input sim_model.cmd
+arg += -incdir ../MODEL
+arg += -incdir ../TESTBENCH
+arg += -64
+arg += -licqueue
+arg += -access +rwc
+arg += -createdebugdb
+arg += -errormax 1
+arg += -noparamerr
+arg += -top testbench
+
+model_files  = $(shell find ../MODEL      -name '*.v')
+model_files += $(shell find ../MODEL      -name '*.sv')
+
+testbench_files  = $(shell find ../TESTBENCH -name '*.v')
+testbench_files += $(shell find ../TESTBENCH -name '*.sv')
+
+verisium_is_running = $(shell ps | grep $(wave_tool))
+
+sim_model: sim_model_run
+ifeq ($(verisium_is_running),) 
+	$(wave_tool) -wave_db sim_model &
+	$(info -------------------------------------------------------------------------------)
+	$(info !!!  Uruchomienie w tle VERISIUM do analizy przebiegow czasowych sygnalow  )
+	$(info -------------------------------------------------------------------------------)
+else
+	$(info -------------------------------------------------------------------------------)
+	$(info -------------------------------------------------------------------------------)
+	$(info !!!  Przegladarka przebiegow VERISIUM juz pracuje  )
+	$(info !!!          Wcisnij CTRL+R w jej oknie aby odswiezyc przebiegi )
+	$(info -------------------------------------------------------------------------------)
+	$(info -------------------------------------------------------------------------------)
+endif
+
+sim_model_run:
+	$(sim_tool) $(arg) $(model_files) $(testbench_files) || make sim_model_failure -f Makefile
+
+sim_model_failure:
+	$(info -------------------------------------------------------------------------------)
+	$(info -------------------------------------------------------------------------------)
+	$(info !!!  BLAD PODCZAS ELABORACJI I KOMPILACJI Verilog'a)
+	$(info !!!     Przeanalizuj informacje o bledach powyzej)
+	$(info -------------------------------------------------------------------------------)
+	$(info -------------------------------------------------------------------------------)    
+	$(error !!!)

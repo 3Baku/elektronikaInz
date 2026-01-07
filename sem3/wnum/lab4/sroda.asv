@@ -1,0 +1,70 @@
+zadanie1()
+
+function zadanie1()
+    polyFun = [1,0,2,-3,8];
+    ideal = polyval(polyFun, 1);
+
+    func = @(x) x^4 +x^2 -3*x-8;
+       
+    rzad1 = @(fun, x, h) (fun(x+h)-fun(x))/h;
+    rzad2 = @(fun, x, h) (fun(x+h) - fun(x-h)) / (2*h);
+    rzad3 = @(fun, x, h) (fun(x-2*h) -8* fun(x-h) + 8*fun(x+h) + fun(x+2*h)) / (12*h);
+    hs = linspace(-0.2, 0.2, 50);
+    rzedy = {rzad1, rzad2, rzad3};
+    bladWzglMatrix = [];
+    for idx = 1:length(rzedy)
+        rzad = rzedy{idx};
+        bladWzglednyRow = [];
+
+        for h = hs
+            wynik = rzad(func, 1, h);
+            bladBezwzgledny = abs(ideal-wynik);
+            bladWzgledny = bladBezwzgledny/abs(ideal);
+            bladWzglednyRow =[bladWzglednyRow, bladWzgledny] 
+        end
+        bladWzglMatrix = [bladWzglMatrix; bladWzglednyRow];
+        
+    end
+    figure;
+    
+    hold on;
+    for idx = 1:length(rzedy)-1
+        semilogy(hs, bladWzglMatrix(idx, :),...
+            'DisplayName', sprintf("Dla rzedu %d", idx));
+    end
+
+   % optimumY = [0.8, 0.8];
+   % optimumX = [-0.2, 0.2];
+   % semilogy(optimumX,optimumY, ...
+   %     'DisplayName', 'optymalne');
+    hold off;
+    legend();
+    grid on;
+    xlabel("Kolejne kroki iteracji");
+    ylabel("Blad wzgledny");
+    title("blad wzgl dla kolejnych krokow iteracji dla wybranych rzedow");
+
+
+end
+
+function zadanie2()
+    func = @(x) exp(-x^2/2)/((2*pi)^(1/2));
+    
+ %   s = quad(func, -1, 1);
+ %   t = trapz(func, -1, 1);
+    
+    liczbyWezlow = linspce(1, 10000, 10);
+    ideal = integral(func, -1, 1, 'RelTol', 1e-15);
+trapzzz = [];
+    for liczbaWezlow = LiczbyWezlow
+        spaceX = linspace(-1,1,liczbaWezlow);
+        spaceY = func(spaceX);
+        trapez = trapz(spaceX, spaceY )]
+        trapzzz = [trapzzz, abs(ideal - trapez) ] ;
+
+        simp = quad(spaceX, spaceY )]
+        trapzzz = [trapzzz, abs(ideal - trapez) ] ;
+    end
+
+
+end

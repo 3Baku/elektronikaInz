@@ -1,0 +1,63 @@
+sim_tool  = xrun
+wave_tool = verisium
+
+arg  = -timescale 1ns/1ps
+arg += -input sim_model.cmd
+arg += -incdir ../MODEL
+arg += -incdir ../TESTBENCH
+arg += -64
+arg += -licqueue
+arg += -access +rwc
+arg += -createdebugdb
+arg += -errormax 1
+arg += -SDF_VERBOSE
+arg += -noparamerr
+arg += -top testbench
+
+gates_file      = /dk/xfab/PDK/xh018/diglibs/D_CELLS_HD/v4_0/verilog/v4_0_0/D_CELLS_HD.v
+gates_file     += /dk/xfab/PDK/xh018/diglibs/D_CELLS_HD/v4_0/verilog/v4_0_0/VLG_PRIMITIVES.v
+gates_file     += ./gates_optimized.v
+
+testbench_files  = $(shell find ../TESTBENCH -name '*.v')
+testbench_files += $(shell find ../TESTBENCH -name '*.sv')
+
+verisium_is_running = $(shell ps | grep $(wave_tool))
+
+gates:
+	genus -overwrite -f ./genus_synt.tcl
+
+sim_gates_slow_run:
+	$(sim_tool) $(arg) -SDF_CMD_FILE gates_sdf_slow.cmd $(gates_file) $(testbench_files)
+
+sim_gates_fast_run:
+	$(sim_tool) $(arg) -SDF_CMD_FILE gates_sdf_fast.cmd $(gates_file) $(testbench_files)
+
+sim_gates_slow: sim_gates_slow_run
+ifeq ($(verisium_is_running),) 
+	$(wave_tool) -wave_db sim_model &
+	$(info -------------------------------------------------------------------------------)
+	$(info !!!  Uruchomienie w tle VERISIUM do analizy przebiegow czasowych sygnalow  )
+	$(info -------------------------------------------------------------------------------)
+else
+	$(info -------------------------------------------------------------------------------)
+	$(info -------------------------------------------------------------------------------)
+	$(info !!!  Przegladarka przebiegow VERISIUM juz pracuje  )
+	$(info !!!          Wcisnij CTRL+R w jej oknie aby odswiezyc przebiegi )
+	$(info -------------------------------------------------------------------------------)
+	$(info -------------------------------------------------------------------------------)
+endif
+
+sim_gates_fast: sim_gates_fast_run
+ifeq ($(verisium_is_running),) 
+	$(wave_tool) -wave_db sim_model &
+	$(info -------------------------------------------------------------------------------)
+	$(info !!!  Uruchomienie w tle VERISIUM do analizy przebiegow czasowych sygnalow  )
+	$(info -------------------------------------------------------------------------------)
+else
+	$(info -------------------------------------------------------------------------------)
+	$(info -------------------------------------------------------------------------------)
+	$(info !!!  Przegladarka przebiegow VERISIUM juz pracuje  )
+	$(info !!!          Wcisnij CTRL+R w jej oknie aby odswiezyc przebiegi )
+	$(info -------------------------------------------------------------------------------)
+	$(info -------------------------------------------------------------------------------)
+endif
