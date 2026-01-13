@@ -7,6 +7,7 @@ module CORE #(
 
     input wire [31:0] i_instr,
     input wire i_valid,
+    input wire i_ready1,
     output wire o_ready,
 
     output wire [DATA_WIDTH-1:0] o_data1,
@@ -16,7 +17,7 @@ module CORE #(
     wire [4:0] s_reg0_addr, s_reg1_addr, s_reg2_addr;
     wire [1:0] s_alu_oper;
     wire s_alu_start_valid;
-    
+    wire [4:0] s_wb_reg_addr;
     wire [DATA_WIDTH-1:0] s_op_a, s_op_b;
     
     wire s_alu_out_ready;
@@ -27,9 +28,13 @@ module CORE #(
     
     reg [4:0] r_reg2_addr_delayed;
 
+    assign s_wb_reg_addr = (s_alu_done_valid && i_ready1) ? r_reg2_addr_delayed : 5'd0;
+
     always @(posedge i_CLK or negedge i_RSTn) begin
-        if(!i_RSTn) r_reg2_addr_delayed <= 0;
-        else if(s_alu_start_valid) r_reg2_addr_delayed <= s_reg2_addr;
+        if(!i_RSTn) 
+            r_reg2_addr_delayed <= 0;
+        else if(s_alu_start_valid && s_alu_out_ready)
+            r_reg2_addr_delayed <= s_reg2_addr;
     end
 
     CONTROL U_CTRL (
@@ -53,7 +58,7 @@ module CORE #(
         .i_reg0(s_reg0_addr),
         .i_reg1(s_reg1_addr),
         
-        .i_reg2(r_reg2_addr_delayed), 
+        .i_reg2(s_wb_reg_addr), 
         .i_data2(s_result_data),
         
         .o_data0(s_op_a),
@@ -71,7 +76,7 @@ module CORE #(
         .o_READY(s_alu_out_ready),
         
         .o_VALID(s_alu_done_valid),
-        .i_READY(1'b1),
+        .i_READY(i_ready1),
         
         .o_Y(s_alu_result_packet)
     );

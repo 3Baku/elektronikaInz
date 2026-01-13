@@ -39,8 +39,8 @@ module REGS #(
                 registers[i] <= {DATA_WIDTH{1'b0}};
             end
 
-            //registers[1] <= 8'd10;
-           // registers[2] <= 8'd5;
+            registers[1] <= 8'd10;
+            registers[2] <= 8'd5;
         end
         else
             if (i_reg2 != 0 && i_reg2 < REG_COUNT)

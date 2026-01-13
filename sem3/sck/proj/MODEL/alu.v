@@ -19,9 +19,7 @@ module ALU #(
 );
 
     reg signed [WIDTH-1:0] o_result;
-    reg flag_overflow;
-    reg flag_carry;
-    reg flag_zero;
+    reg [2:0] o_flag; // overflow, carry, zero
     
     reg [WIDTH:0] temp_add_sub;
     reg [2*WIDTH-1:0] temp_vec;
@@ -29,9 +27,7 @@ module ALU #(
 
     always @(*) begin
         o_result = {WIDTH{1'b0}};
-        flag_overflow = 1'b0;
-        flag_carry = 1'b0;
-        flag_zero = 1'b0;
+        o_flag = {3{1'b0}};
         temp_add_sub = {(WIDTH+1){1'b0}};
 
         case(i_oper)
@@ -40,21 +36,21 @@ module ALU #(
                 
                 o_result = temp_add_sub[WIDTH-1:0];
                 
-                flag_carry = temp_add_sub[WIDTH];
+                o_flag[1] = temp_add_sub[WIDTH];
 
-                flag_overflow = (i_arg0[WIDTH-1] == i_arg1[WIDTH-1]) && (o_result[WIDTH-1] != i_arg0[WIDTH-1]);
+                o_flag[0] = (i_arg0[WIDTH-1] == i_arg1[WIDTH-1]) && (o_result[WIDTH-1] != i_arg0[WIDTH-1]);
             end
 
             2'b01: begin
-                {flag_carry, o_result} = $unsigned(i_arg0) - $unsigned(i_arg1);
+                {o_flag[1], o_result} = $unsigned(i_arg0) - $unsigned(i_arg1);
                 
-                flag_overflow = (i_arg0[WIDTH-1] != i_arg1[WIDTH-1]) && (o_result[WIDTH-1] != i_arg0[WIDTH-1]);
+                o_flag[0] = (i_arg0[WIDTH-1] != i_arg1[WIDTH-1]) && (o_result[WIDTH-1] != i_arg0[WIDTH-1]);
             end
 
             2'b10: begin
                 o_result = i_arg0 & i_arg1;
-                flag_carry = 1'b0;
-                flag_overflow = 1'b0;
+                o_flag[1] = 1'b0;
+                o_flag[0] = 1'b0;
             end
 
             2'b11: begin
@@ -66,7 +62,7 @@ module ALU #(
             end
         endcase
 
-        flag_zero = (o_result == {WIDTH{1'b0}});
+        o_flag[2] = (o_result == {WIDTH{1'b0}});
     end
 
     cpreg #(
@@ -80,7 +76,7 @@ module ALU #(
         .o_VALID(o_VALID),
         .i_READY(i_READY),
         
-        .i_D({o_result, flag_overflow, flag_carry, flag_zero}),
+        .i_D({o_result, o_flag}),
         .o_Q(o_Y)
     );
 

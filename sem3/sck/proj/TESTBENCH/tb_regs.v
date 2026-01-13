@@ -37,28 +37,47 @@ module testbench;
         wait(s_RSTn == 1);
         @(posedge s_CLK);
 
+        // 1. Standardowy zapis i odczyt
+        $display("T1: Zapis 55 do R1");
         r_reg2  <= 5'd1;
         r_data2 <= 8'd55;
-        @(posedge s_CLK); 
-
-        r_reg2  <= 5'd2;
-        r_data2 <= 8'hAA;
-        r_reg0  <= 5'd1;
         @(posedge s_CLK);
 
+        // 2. Odczyt tego, co zapisaliśmy + Zapis nowej wartości
+        $display("T2: Odczyt R1 (oczekiwane 55) i Zapis AA do R2");
+        r_reg0  <= 5'd1;      // Czytamy R1
+        r_reg2  <= 5'd2;      // Piszemy do R2
+        r_data2 <= 8'hAA;
+        @(posedge s_CLK);
+
+        // 3. Test R0 (musi być zawsze 0)
+        $display("T3: Próba zapisu FF do R0 (powinna być ignorowana)");
         r_reg2  <= 5'd0;
         r_data2 <= 8'hFF;
-        r_reg0  <= 5'd1;
-        r_reg1  <= 5'd2;
+        r_reg0  <= 5'd0;      // Czytamy R0
+        r_reg1  <= 5'd2;      // Czytamy R2 (powinno być AA)
         @(posedge s_CLK);
 
-        r_reg2  <= 5'd0;
-        r_reg0  <= 5'd0;
-        r_reg1  <= 5'd1;
+        // 4. TEST SPECYFIKACJI: Odczyt spoza zakresu (>31)
+        //  "Odczyt z rejestru o numerze, który przekracza liczbę rejestrów zwraca 0"
+        $display("T4: Odczyt z rejestru 33 (oczekiwane 0)");
+        r_reg0  <= 5'd33; 
+        r_reg2  <= 5'd0; // Wyłącz zapis
+        @(posedge s_CLK);
+
+        // 5. Read-During-Write (Ten sam rejestr R5)
+        $display("T5: Jednoczesny zapis i odczyt R5");
+        r_reg2  <= 5'd5;
+        r_data2 <= 8'h77;
+        r_reg0  <= 5'd5; 
         @(posedge s_CLK);
         
-        r_reg0 <= 0; r_reg1 <= 0;
-        repeat(5) @(posedge s_CLK);
+        // Sprawdzenie czy w kolejnym takcie R5 ma nową wartość
+        r_reg2 <= 0;
+        r_reg0 <= 5'd5;
+        @(posedge s_CLK);
+
+        $finish;
     end
 
 endmodule
