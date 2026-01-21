@@ -1,0 +1,13 @@
+[Intro] (Laboratorium... tranzystory... wielki sygnał...) Siedzimy nad wykresem, punkt pracy nam ucieka Generator daje puls, oscyloskop czeka Mamy trzy stany, musisz znać te granice Zatkanie, Aktywny i to głębokie Nasycenie
+
+[Zwrotka 1] W stanie zatkania prąd IB​ to zero, oba złącza zaporowe W stanie aktywnym IC​ to βF​ razy IB​, to są słowa kluczowe Ale gdy UCE​ spada, a UCB​ jest zerem Wchodzisz w nasycenie, stajesz się inżynierem Włączanie ma opóźnienie td​, pojemności ładujemy Dopiero potem czas narastania tr​, prąd w górę windujemy
+
+[Refren] To czas magazynowania ts​ – najgorszy wróg inwertera! Bo ładunek przesterowania Qprzes​ bazę nam zapycha teraz! Dopóki nośniki mniejszościowe z bazy nie znikną w nicości Prąd kolektora wciąż płynie, mimo braku sterowania w całości! Ratunkiem Dioda Schottky’ego, wpięta w Baza-Kolektor Trzyma UCE​ na 0,4 V – to jest nasz protektor! Nie ma głębokiego nasycenia, ts​ spada do zera Tak działa szybki układ, tak działa nowoczesna era!
+
+[Zwrotka 2] Wyłączanie to proces, najpierw ts​ nas trzyma Potem czas opadania tf​, gdy prąd już ledwo dycha Gradient koncentracji w bazie maleje powoli A Efekt Millera pojemność wejściową nam podwoi Teraz spójrz na Inwerter, charakterystyka przejściowa Od stanu Wysokiego do Niskiego, to logiczna mowa Punkt pracy skacze po prostej obciążenia RC​ Od odcięcia do nasycenia, tak to właśnie chce!
+
+[Refren] To czas magazynowania ts​ – najgorszy wróg inwertera! Bo ładunek przesterowania Qprzes​ bazę nam zapycha teraz! Dopóki nośniki mniejszościowe z bazy nie znikną w nicości Prąd kolektora wciąż płynie, mimo braku sterowania w całości! Ratunkiem Dioda Schottky’ego, wpięta w Baza-Kolektor Trzyma UCE​ na 0,4 V – to jest nasz protektor!
+
+[Bridge] A w CMOSie inna bajka, tam prąd statyczny nie płynie NMOS na dole, PMOS na górze, w komplementarnej rodzinie Jeden zatkany, drugi przewodzi, moc oszczędzamy Czas propagacji tP​ – średnią z czasów wyliczamy! Pół amplitudy, 50 procent, tpLH​ plus tpHL​ przez dwa To definicja szybkości, którą każdy student zna!
+
+[Outro] (Pamiętaj o rozkładach nośników...) (W nasyceniu cała baza zalana...) (Sprawozdanie zaliczone...) (Jah bless the transistors...)

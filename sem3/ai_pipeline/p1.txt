@@ -1,0 +1,19 @@
+W C deklarujesz typy, tu tego nie trzeba Zmienna powstaje sama, tak przychyla nieba inty są całkowite, a float z kropkami complex ma część urojoną, bawisz się liczbami Wszystko jest obiektem, to zasada złota Metody i atrybuty, to nie jest głupota Pamiętaj o wcięciach, cztery spacje w rządku PEP 8 pilnuje twojego porządku
+
+Listy w nawiasach kwadratowych zapisujesz Są mutable, więc zmieniasz, dodajesz, kasujesz Metoda append na końcu coś doda A pop usunie, taka to metoda Lecz tuple to krotka, nawias okrągły ma Jest immutable, niezmienna, twarda jak głaz Nie zmienisz elementu, błąd ci wyskoczy Gdy spróbujesz przypisać, system cię zaskoczy
+
+def definiuje funkcję, pass to pusty blok *args w gwiazdce łapią krotkę, to jest dobry krok **kwargs dwie gwiazdki mają, słownik budują nam yield w generatorze, pamięta funkcji stan! Zwraca po jednym, pamięci nie zjada Leniwa ewaluacja – tak się to układa!
+
+Słownik to dict, klucz i wartość w parze Klucz musi być stały, tak wam tu pokażę Klamrowe nawiasy, dwukropek pośrodku Metoda items() zwraca krotki w rządku set to jest zbiór, co duplikatów nie zna Kolejność nieznana, cecha pożyteczna Chcesz usunąć powtórki z listy kolego? Zrób rzutowanie na set, pozbędziesz się tego
+
+Slicing to magia, tnie napisy i listy Start, dwukropek, stop – zapis oczywisty Trzeci argument to krok, step się nazywa Minus jeden odwraca, tak to się odbywa List Comprehension, składana lista w jednej linii Pętla for w nawiasie, kod twój uczyni Mniej pisania, szybciej działa, to jest styl Zamiast pętli append, zrób to w jedną chwil!
+
+def definiuje funkcję, pass to pusty blok *args w gwiazdce łapią krotkę, to jest dobry krok **kwargs dwie gwiazdki mają, słownik budują nam yield w generatorze, pamięta funkcji stan! Zwraca po jednym, pamięci nie zjada Leniwa ewaluacja – tak się to układa!
+
+(Uwaga na pułapkę!) Argument domyślny, gdy listą mutable jest Zostanie współdzielony, oblejesz przez to test! Użyj None jako domyślnej wartości Wtedy w funkcji if is None zagości!
+
+Zasięg zmiennych rządzi się prawem LEGB Local, Enclosing, Global – tak to brzmi Gdy w funkcji zmieniasz globalną zmienną Użyj słowa global, by stała się wymierną A dekorator? To małpa przed funkcją Wrapperem owija, jest super instrukcją Mierzy czas, loguje, zmienia działanie Dodaje feature'y na twe zawołanie
+
+match case to nowość, jak switch w C działa Podłoga to default, gdy reszta nawala A gdy błąd wyskoczy, wyjątek w kodzie Blok try go wyłapie, nie zginiesz w wodzie except obsłuży, gdy dzielisz przez zero finally posprząta, ty super-hero!
+
+Lambda to funkcja co nazwy nie ma! Jedno wyrażenie, to nie jest ściema! Pamiętaj o typach, Type Hints pomagają Lecz interpreter ich wcale nie sprawdza! (Powodzenia!)

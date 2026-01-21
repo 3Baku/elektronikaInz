@@ -1,0 +1,17 @@
+# USUNIĘTO: read_verilog ..\MODEL\library_modules.v  <-- TA LINIA POWODUJE BŁĄD
+
+# Wczytaj pozostałe pliki (alu.v sam sobie zaimportuje library_modules.v)
+read_verilog ..\MODEL\alu.v
+read_verilog ..\MODEL\regs.v
+read_verilog ..\MODEL\control.v
+read_verilog ..\MODEL\core.v
+
+hierarchy -check -top CORE
+
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+abc -g gates
+clean
+
+write_verilog synth_core.v
+show -prefix core_schematic -format dot
