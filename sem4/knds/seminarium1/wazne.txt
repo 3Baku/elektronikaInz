@@ -1,0 +1,20 @@
+WSPOMNIJ O:
+1 BNN są równoglełe prawdziwie, więc architektura von Neumana
+nigdy nie będzie idealnie odtworzona
+ANN z natury są równoległe, ale w komputerze musimy zrównoglelać po GPU
+rdzeń to jednostka Von Neumana,
+wielowątkowość to przypisywanie zadania między różne rdzenie
+GPU ma wiele rdzeni, więc mimo tego, że każdy rdzeń jest\
+sekwencyjny to możemy rozłożyć całość róznolegle na nie
+szybko mnożąc macierze
+ALE wydajność energetyczna nigdy nie będzie tak dobra, 
+bo mamy gigabajty wag
+
+(Stąd są SNN)
+2 Krzem jest szybszy od reakcji elektrochemicznych
+
+
+
+https://enccs.github.io/gpu-programming/2-gpu-ecosystem/
+
+https://www.geeksforgeeks.org/machine-learning/difference-between-ann-and-bnn/

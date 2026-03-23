@@ -1,0 +1,5 @@
+beautifulsoup4
+requests
+google-genai
+reportlab
+python-dotenv

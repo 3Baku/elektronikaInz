@@ -1,0 +1,395 @@
+def calculate_volumne(r, N, seed):
+    r :: float
+    N, seed :: int
+    r0 :: object
+    r1 :: str
+    r2, r3 :: object
+    r4 :: object[1]
+    r5 :: object_ptr
+    r6 :: object
+    r7 :: float
+    r8, r9, r10 :: object
+    r11 :: float
+    r12 :: bit
+    r13 :: int
+    r14 :: object
+    r15 :: float
+    r16 :: bit
+    r17, r18 :: float
+    r19 :: bit
+    r20 :: object
+    r21 :: bit
+    r22 :: object
+    r23 :: bool
+    r24, r25 :: float
+L0:
+    r0 = random :: module
+    r1 = 'seed'
+    r2 = CPyObject_GetAttr(r0, r1)
+    if is_error(r2) goto L14 (error at calculate_volumne:4) else goto L1
+L1:
+    inc_ref seed :: int
+    r3 = box(int, seed)
+    r4 = [r3]
+    r5 = load_address r4
+    r6 = PyObject_Vectorcall(r2, r5, 1, 0)
+    dec_ref r2
+    if is_error(r6) goto L15 (error at calculate_volumne:4) else goto L16
+L2:
+    dec_ref r3
+    r7 = 2.0 * r
+    r8 = box(float, r7)
+    r9 = box(float, 3.0)
+    r10 = CPyNumber_Power(r8, r9)
+    dec_ref r8
+    dec_ref r9
+    if is_error(r10) goto L14 (error at calculate_volumne:5) else goto L3
+L3:
+    r11 = unbox(float, r10)
+    dec_ref r10
+    r12 = r11 == -113.0
+    if r12 goto L5 else goto L4 :: bool
+L4:
+    r13 = count_hits(r, N)
+    if is_error(r13) goto L14 (error at calculate_volumne:6) else goto L6
+L5:
+    r14 = PyErr_Occurred()
+    if not is_error(r14) goto L14 (error at calculate_volumne:5) else goto L4
+L6:
+    r15 = CPyFloat_FromTagged(r13)
+    dec_ref r13 :: int
+    r16 = r15 == -113.0
+    if r16 goto L8 else goto L7 :: bool
+L7:
+    r17 = r11 * r15
+    r18 = CPyFloat_FromTagged(N)
+    r19 = r18 == -113.0
+    if r19 goto L10 else goto L9 :: bool
+L8:
+    r20 = PyErr_Occurred()
+    if not is_error(r20) goto L14 (error at calculate_volumne:6) else goto L7
+L9:
+    r21 = r18 == 0.0
+    if r21 goto L11 else goto L13 :: bool
+L10:
+    r22 = PyErr_Occurred()
+    if not is_error(r22) goto L14 (error at calculate_volumne:6) else goto L9
+L11:
+    r23 = raise ZeroDivisionError('float division by zero')
+    if not r23 goto L14 (error at calculate_volumne:6) else goto L12 :: bool
+L12:
+    unreachable
+L13:
+    r24 = r17 / r18
+    return r24
+L14:
+    r25 = <error> :: float
+    return r25
+L15:
+    dec_ref r3
+    goto L14
+L16:
+    dec_ref r6
+    goto L2
+
+def count_hits(r, N):
+    r :: float
+    N, hits, r0, i :: int
+    r1 :: native_int
+    r2 :: bit
+    r3 :: native_int
+    r4, r5, r6 :: bit
+    r7 :: float
+    r8 :: object
+    r9 :: str
+    r10, r11, r12 :: object
+    r13 :: object[2]
+    r14 :: object_ptr
+    r15 :: object
+    r16 :: float
+    r17 :: bit
+    r18 :: float
+    r19 :: object
+    r20 :: str
+    r21, r22, r23, r24 :: object
+    r25 :: object[2]
+    r26 :: object_ptr
+    r27 :: object
+    r28 :: float
+    r29 :: bit
+    r30 :: float
+    r31 :: object
+    r32 :: str
+    r33, r34, r35, r36 :: object
+    r37 :: object[2]
+    r38 :: object_ptr
+    r39 :: object
+    r40 :: float
+    r41 :: bit
+    r42, r43, r44, r45 :: object
+    r46 :: float
+    r47 :: bit
+    r48, r49, r50, r51 :: object
+    r52 :: float
+    r53 :: bit
+    r54, r55 :: float
+    r56 :: bit
+    r57, r58, r59, r60 :: object
+    r61 :: float
+    r62 :: bit
+    r63, r64, r65, r66 :: object
+    r67 :: float
+    r68 :: bit
+    r69, r70 :: float
+    r71 :: bit
+    r72 :: object
+    r73, r74, r75 :: int
+L0:
+    hits = 0
+    r0 = 2
+    inc_ref r0 :: int
+    i = r0
+    dec_ref i :: int
+L1:
+    r1 = r0 & 1
+    r2 = r1 != 0
+    if r2 goto L3 else goto L2 :: bool
+L2:
+    r3 = N & 1
+    r4 = r3 != 0
+    if r4 goto L3 else goto L4 :: bool
+L3:
+    r5 = CPyTagged_IsLt_(r0, N)
+    if r5 goto L5 else goto L35 :: bool
+L4:
+    r6 = r0 < N :: signed
+    if r6 goto L5 else goto L35 :: bool
+L5:
+    r7 = -r
+    r8 = random :: module
+    r9 = 'uniform'
+    r10 = CPyObject_GetAttr(r8, r9)
+    if is_error(r10) goto L36 (error at count_hits:12) else goto L6
+L6:
+    r11 = box(float, r7)
+    r12 = box(float, r)
+    r13 = [r11, r12]
+    r14 = load_address r13
+    r15 = PyObject_Vectorcall(r10, r14, 2, 0)
+    dec_ref r10
+    if is_error(r15) goto L37 (error at count_hits:12) else goto L7
+L7:
+    dec_ref r11
+    dec_ref r12
+    r16 = unbox(float, r15)
+    dec_ref r15
+    r17 = r16 == -113.0
+    if r17 goto L9 else goto L8 :: bool
+L8:
+    r18 = -r
+    r19 = random :: module
+    r20 = 'uniform'
+    r21 = CPyObject_GetAttr(r19, r20)
+    if is_error(r21) goto L36 (error at count_hits:13) else goto L10
+L9:
+    r22 = PyErr_Occurred()
+    if not is_error(r22) goto L36 (error at count_hits:12) else goto L8
+L10:
+    r23 = box(float, r18)
+    r24 = box(float, r)
+    r25 = [r23, r24]
+    r26 = load_address r25
+    r27 = PyObject_Vectorcall(r21, r26, 2, 0)
+    dec_ref r21
+    if is_error(r27) goto L38 (error at count_hits:13) else goto L11
+L11:
+    dec_ref r23
+    dec_ref r24
+    r28 = unbox(float, r27)
+    dec_ref r27
+    r29 = r28 == -113.0
+    if r29 goto L13 else goto L12 :: bool
+L12:
+    r30 = -r
+    r31 = random :: module
+    r32 = 'uniform'
+    r33 = CPyObject_GetAttr(r31, r32)
+    if is_error(r33) goto L36 (error at count_hits:14) else goto L14
+L13:
+    r34 = PyErr_Occurred()
+    if not is_error(r34) goto L36 (error at count_hits:13) else goto L12
+L14:
+    r35 = box(float, r30)
+    r36 = box(float, r)
+    r37 = [r35, r36]
+    r38 = load_address r37
+    r39 = PyObject_Vectorcall(r33, r38, 2, 0)
+    dec_ref r33
+    if is_error(r39) goto L39 (error at count_hits:14) else goto L15
+L15:
+    dec_ref r35
+    dec_ref r36
+    r40 = unbox(float, r39)
+    dec_ref r39
+    r41 = r40 == -113.0
+    if r41 goto L17 else goto L16 :: bool
+L16:
+    r42 = box(float, r16)
+    r43 = box(float, 2.0)
+    r44 = CPyNumber_Power(r42, r43)
+    dec_ref r42
+    dec_ref r43
+    if is_error(r44) goto L36 (error at count_hits:15) else goto L18
+L17:
+    r45 = PyErr_Occurred()
+    if not is_error(r45) goto L36 (error at count_hits:14) else goto L16
+L18:
+    r46 = unbox(float, r44)
+    dec_ref r44
+    r47 = r46 == -113.0
+    if r47 goto L20 else goto L19 :: bool
+L19:
+    r48 = box(float, r28)
+    r49 = box(float, 2.0)
+    r50 = CPyNumber_Power(r48, r49)
+    dec_ref r48
+    dec_ref r49
+    if is_error(r50) goto L36 (error at count_hits:15) else goto L21
+L20:
+    r51 = PyErr_Occurred()
+    if not is_error(r51) goto L36 (error at count_hits:15) else goto L19
+L21:
+    r52 = unbox(float, r50)
+    dec_ref r50
+    r53 = r52 == -113.0
+    if r53 goto L23 else goto L22 :: bool
+L22:
+    r54 = r46 + r52
+    r55 = r * r
+    r56 = r54 <= r55
+    if r56 goto L24 else goto L32 :: bool
+L23:
+    r57 = PyErr_Occurred()
+    if not is_error(r57) goto L36 (error at count_hits:15) else goto L22
+L24:
+    r58 = box(float, r16)
+    r59 = box(float, 2.0)
+    r60 = CPyNumber_Power(r58, r59)
+    dec_ref r58
+    dec_ref r59
+    if is_error(r60) goto L36 (error at count_hits:15) else goto L25
+L25:
+    r61 = unbox(float, r60)
+    dec_ref r60
+    r62 = r61 == -113.0
+    if r62 goto L27 else goto L26 :: bool
+L26:
+    r63 = box(float, r40)
+    r64 = box(float, 2.0)
+    r65 = CPyNumber_Power(r63, r64)
+    dec_ref r63
+    dec_ref r64
+    if is_error(r65) goto L36 (error at count_hits:15) else goto L28
+L27:
+    r66 = PyErr_Occurred()
+    if not is_error(r66) goto L36 (error at count_hits:15) else goto L26
+L28:
+    r67 = unbox(float, r65)
+    dec_ref r65
+    r68 = r67 == -113.0
+    if r68 goto L30 else goto L29 :: bool
+L29:
+    r69 = r61 + r67
+    r70 = r * r
+    r71 = r69 <= r70
+    if r71 goto L31 else goto L32 :: bool
+L30:
+    r72 = PyErr_Occurred()
+    if not is_error(r72) goto L36 (error at count_hits:15) else goto L29
+L31:
+    r73 = CPyTagged_Add(hits, 2)
+    dec_ref hits :: int
+    hits = r73
+L32:
+    r74 = CPyTagged_Add(r0, 2)
+    dec_ref r0 :: int
+    inc_ref r74 :: int
+    r0 = r74
+    i = r74
+    dec_ref i :: int
+    goto L1
+L33:
+    return hits
+L34:
+    r75 = <error> :: int
+    return r75
+L35:
+    dec_ref r0 :: int
+    goto L33
+L36:
+    dec_ref hits :: int
+    dec_ref r0 :: int
+    goto L34
+L37:
+    dec_ref hits :: int
+    dec_ref r0 :: int
+    dec_ref r11
+    dec_ref r12
+    goto L34
+L38:
+    dec_ref hits :: int
+    dec_ref r0 :: int
+    dec_ref r23
+    dec_ref r24
+    goto L34
+L39:
+    dec_ref hits :: int
+    dec_ref r0 :: int
+    dec_ref r35
+    dec_ref r36
+    goto L34
+
+def __top_level__():
+    r0, r1 :: object
+    r2 :: bit
+    r3 :: str
+    r4 :: object
+    r5 :: object_ptr
+    r6 :: object_ptr[1]
+    r7 :: c_ptr
+    r8 :: native_int[1]
+    r9 :: c_ptr
+    r10 :: object
+    r11 :: dict
+    r12, r13 :: str
+    r14 :: bit
+    r15 :: None
+L0:
+    r0 = builtins :: module
+    r1 = load_address _Py_NoneStruct
+    r2 = r0 != r1
+    if r2 goto L3 else goto L1 :: bool
+L1:
+    r3 = 'builtins'
+    r4 = PyImport_Import(r3)
+    if is_error(r4) goto L5 (error at <module>:-1) else goto L2
+L2:
+    builtins = r4 :: module
+    dec_ref r4
+L3:
+    r5 = load_address random :: module
+    r6 = [r5]
+    r7 = load_address r6
+    r8 = [1]
+    r9 = load_address r8
+    r10 = (('random', 'random', 'random'),)
+    r11 = mypyc_calculate_volume.globals :: static
+    r12 = 'mypyc_calculate_volume.py'
+    r13 = '<module>'
+    r14 = CPyImport_ImportMany(r10, r7, r11, r12, r13, r9)
+    if not r14 goto L5 else goto L4 :: bool
+L4:
+    return 1
+L5:
+    r15 = <error> :: None
+    return r15

@@ -1,0 +1,13 @@
+name: dyplom_answerer
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - beautifulsoup4
+  - requests
+  - reportlab
+  - python-dotenv
+  - pip
+  - pip:
+    - google-genai

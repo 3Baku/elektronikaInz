@@ -89,10 +89,10 @@ function zadanie2()
         y_rand = y_max * rand(1, N);      % y w zakresie [0, y_max]
         
         % Sprawdzenie warunku logicznego dla całego wektora naraz
-        trafienia = y_rand <= func(x_rand); 
+        hits = y_rand <= func(x_rand); 
         
         pole_prostokata = 2 * y_max; % szerokość (2) * wysokość
-        wynikMC = pole_prostokata * (sum(trafienia) / N);
+        wynikMC = pole_prostokata * (sum(hits) / N);
         bledyMC = [bledyMC, abs(ideal - wynikMC)];
     end
     
